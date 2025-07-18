@@ -133,8 +133,14 @@
 #' @importFrom vegan wascores
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
-    \n\n\n Copyright (C) 2011-2022 Leo Lahti, 
-    Sudarshan Shetty et al. <microbiome.github.io>\n")
+    \n\n\n Copyright (C) 2011-2025 Leo Lahti, 
+    Sudarshan Shetty et al. <microbiome.github.io>
+    \n 
+    Note: we recommend switching to the SummarizedExperiment
+    framework, see microbiome.github.io/OMA and the mia package.
+    Minimum maintenance is provided microbiome R package but the
+    development efforts have switched to mia."   
+    )
 }
 
 # As far as I understand the problem, running into this error / limit is _not_
