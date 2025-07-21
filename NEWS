@@ -87,24 +87,3 @@ Changes in version 0.5.4 (2018-11-20)
 + Color order in plot_landscape legend now follows the factor levels
   of the col argument
 + Fixed example in remove_samples
-
-CHANGES IN VERSION 0.1.2 
-
-# New features
-+ Added plot_abundances function
-+ Added Chao1 index in richness function
-+ In atlas1006 data set, pseudocount of +1 in otu table has been
-  removed to facilitate comparison with sequencing data sets and to
-  avoid confusion
-+ In atlas1006 data set, only a single replicate per subject-time
-  combination is chosen (at random)
-+ New function collapse_replicates has been added
-
-# Major changes
-+ Abundance matrices (otu tables) for all example data sets now starting from 0 without pseudocount
-
-# Minor changes
-+ Changed the default for the detection argument in the richness function to detection=0
-+ Color order in plot_landscape legend now follows the factor levels of the col argument
-+ Various minor fixes; see github commits for many more details
-
