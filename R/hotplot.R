@@ -23,14 +23,15 @@
 hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
     shift=0.001, log10=TRUE) {
     
+    trans <- "identity"
     if (log10) {
-        x <- transform(x, "log10")
+        trans <- "log10"
         tipping.point <- log10(tipping.point)
     }
     
     Abundance <- ..density.. <- ..x.. <- NULL
     
-    otu <- abundances(x)
+    otu <- abundances(x, transform=trans)
     
     # Add small shift to avoid problems with 0 Use log10 to enable useful
     # visualization

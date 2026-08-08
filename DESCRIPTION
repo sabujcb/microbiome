@@ -34,8 +34,11 @@ Suggests:
     BiocStyle,
     Cairo,
     knitr,
+    mia,
     rmarkdown,
-    testthat
+    SummarizedExperiment,
+    testthat,
+    TreeSummarizedExperiment
 URL: http://microbiome.github.io/microbiome
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues

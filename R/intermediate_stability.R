@@ -53,8 +53,8 @@ intermediate_stability <- function(x, reference.point=NULL,
                 method=method, output=output)
         }
         
-        if (ntaxa(x) > 1) {
-            scores <- as.data.frame(scores, nrow=ntaxa(x))
+        if (.ntaxa(x) > 1) {
+            scores <- as.data.frame(scores, nrow=.ntaxa(x))
         } else {
             scores <- as.data.frame(t(as.matrix(scores,
             ncol=length(reference.point))))
@@ -67,8 +67,8 @@ intermediate_stability <- function(x, reference.point=NULL,
     }
     
     # Logarithmize the data with CLR 
-    x <- abundances(transform(x0, "clr"))
-    meta <- sample_data(x0)
+    x <- abundances(x0, transform="clr")
+    meta <- meta(x0)
     
     # Estimate stabilities for each OTU
     stability <- list()

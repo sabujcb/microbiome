@@ -39,7 +39,7 @@ boxplot_abundance <-
     if (y %in% taxa(pseq)) {
         df$yvar <- as.vector(unlist(otu[y, ]))
     } else {
-        df$yvar <- as.vector(unlist(sample_data(pseq)[, y]))
+        df$yvar <- as.vector(unlist(df[[y]]))
     }
     
     if (na.rm) {

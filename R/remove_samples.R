@@ -18,7 +18,7 @@ remove_samples <- function(samples = NULL, x) {
 
     if (is.null(samples)) {return(x)}
     
-    i <- samples %in% sample_names(x)
+    i <- samples %in% .sample_names(x)
 
     if (!all(i)) {
         warning(paste("Of the given sample removal list, ",
@@ -26,8 +26,8 @@ remove_samples <- function(samples = NULL, x) {
         Removing these.", sep = ""))
     }    
 
-    keep <- setdiff(sample_names(x), samples)
-    prune_samples(keep, x)
+    keep <- setdiff(.sample_names(x), samples)
+    .subset_samples_obj(x, keep)
     
 }
 

@@ -38,8 +38,8 @@ prevalence <- function(x, detection=0, sort=FALSE, count=FALSE,
         return(NULL)
     }
     
-    # Convert phyloseq to matrix
-    if (is.phyloseq(x)) {
+    # Convert phyloseq / SummarizedExperiment to matrix
+    if (.is_data_object(x)) {
         x <- abundances(x)
     }
     

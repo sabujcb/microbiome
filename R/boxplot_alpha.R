@@ -60,8 +60,8 @@ boxplot_alpha <- function(x,
         return(p)
     }
     
-    if(!any(phyloseq::sample_variables(x) %in% x_var)){
-      stop("'x_var' not available in `sample_data`")  
+    if(!any(colnames(meta(x)) %in% x_var)){
+      stop("'x_var' not available in the sample metadata")  
     }
     
     if(!is.na(fill.colors)[1]){

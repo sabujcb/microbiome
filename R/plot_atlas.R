@@ -24,12 +24,13 @@ plot_atlas <- function(pseq, x, y, ncol=2) {
     
     index <- signal <- xvar <- NULL
     
-    df <- data.frame(sample_data(pseq)[, x])
+    m <- meta(pseq)
+    df <- data.frame(m[, x, drop=FALSE])
     df$xvar <- df[[x]]
     df$xvar <- as.factor(df$xvar)
-    
-    if (y %in% names(sample_data(pseq))) {
-        df$signal <- sample_data(pseq)[[y]]
+
+    if (y %in% colnames(m)) {
+        df$signal <- m[[y]]
     } else if (y %in% rownames(abundances(pseq))) {
         df$signal <- as.vector(abundances(pseq)[y, ])
     }

@@ -23,7 +23,7 @@ time_normalize <- function(x) {
     }
     
     # Fix this to sample metadata in the original input
-    sample_data(xo) <- meta
+    xo <- .set_meta(xo, meta)
     
     # Return phyloseq with normalized time field
     xo

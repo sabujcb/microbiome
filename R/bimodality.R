@@ -122,9 +122,9 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
                 bs.iter=bs.iter, min.density=min.density, verbose=verbose)
         })
         
-    } else if (is.phyloseq(x)) {
-        
-        # Pick the data from phyloseq object
+    } else if (.is_data_object(x)) {
+
+        # Pick the data from phyloseq / SummarizedExperiment object
         x <- abundances(x)
         s <- bimodality(x, method=method, peak.threshold=peak.threshold,
         bw.adjust=bw.adjust, 

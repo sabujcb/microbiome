@@ -1,10 +1,15 @@
 #' @title Abundance Matrix from Phyloseq
-#' @description Retrieves the taxon abundance table from
-#' phyloseq-class object and ensures it is systematically returned as
+#' @description Retrieves the taxon abundance table from a
+#' phyloseq-class or SummarizedExperiment-derived object (including
+#' TreeSummarizedExperiment) and ensures it is systematically returned as
 #' taxa x samples matrix.
 #' @inheritParams transform
+#' @param assay.type Name of the assay to pick when \code{x} is a
+#' SummarizedExperiment-derived object. Defaults to \code{NULL}, which
+#' selects the \code{counts} assay when present and otherwise the first
+#' assay. Ignored for phyloseq objects.
 #' @return Abundance matrix (OTU x samples).
-#' @references See citation('microbiome') 
+#' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @export
 #' @aliases ab, otu
@@ -13,10 +18,16 @@
 #' a <- abundances(dietswap)
 #' # b <- abundances(dietswap, transform='compositional')
 #' @keywords utilities
-abundances <- function(x, transform="identity") {
+abundances <- function(x, transform="identity", assay.type=NULL) {
 
     # Pick the OTU data
-    if (any(c("phyloseq", "otu_table") %in% is(x))) {
+    if (.is_se(x)) {
+
+        # Features are always rows in SummarizedExperiment, so no
+        # transposition is needed here.
+        otu <- .se_assay(x, assay.type)
+
+    } else if (any(c("phyloseq", "otu_table") %in% is(x))) {
 
         # Pick OTU matrix
         otu <- as(otu_table(x), "matrix") # get_taxa(x)

@@ -24,7 +24,7 @@ baseline <- function(x, na.omit=TRUE) {
     m <- meta(x)
     
     if (!all(c("time", "sample", "subject") %in% names(m))) {
-        stop("The phyloseq sample_data(x) should contain the following fields: 
+        stop("The sample metadata should contain the following fields: 
         time, sample, subject.")
     }
     
@@ -36,7 +36,7 @@ baseline <- function(x, na.omit=TRUE) {
     ss <- m$subject
     s <- m$sample[match(unique(ss), ss)]
     
-    xx <- prune_samples(s, x)
+    xx <- .subset_samples_obj(x, s)
     
     xx
 }

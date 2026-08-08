@@ -95,8 +95,7 @@ rarity_help <- function(x, index="all", detection, prevalence) {
 
     # Pick data
     otu  <- abundances(x)
-    otuc <- transform(x, "compositional")
-    otu.relative <- abundances(otuc)
+    otu.relative <- abundances(x, transform="compositional")
 
     if (index == "log_modulo_skewness") {
     

@@ -26,7 +26,8 @@ inequality <- function(x) {
     do <- apply(otu, 2, function(x) {
         inequality_help(x)
     })
-    names(do) <- sample_names(x)
+    # Backend-agnostic: the abundance matrix already carries sample names
+    names(do) <- colnames(otu)
     
     do
     

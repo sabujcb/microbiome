@@ -40,7 +40,7 @@ core <- function(x, detection, prevalence, include.lowest=FALSE, ...) {
     taxa <- core_members(x, detection, prevalence,
         include.lowest=include.lowest)
 
-    prune_taxa(taxa, xorig)
+    .subset_taxa_obj(xorig, taxa)
 
 }
 

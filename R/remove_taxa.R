@@ -27,7 +27,7 @@ remove_taxa <- function(taxa = NULL, x) {
 
     keep <- setdiff(taxa(x), taxa)
 
-    prune_taxa(keep, x)
+    .subset_taxa_obj(x, keep)
 
 }
 

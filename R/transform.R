@@ -13,6 +13,12 @@
 #' transform = "scale".
 #' @param log10 Used only for Z transformation. Apply log10 before Z.
 #' @param reference Reference feature for the alr transformation.
+#' @param name Name of the assay that the transformed matrix is stored
+#' under when \code{x} is a SummarizedExperiment-derived object. Defaults
+#' to the name of the transformation. The original assays are left
+#' untouched, so the result is read back with
+#' \code{abundances(x, assay.type = name)}. Ignored for phyloseq objects,
+#' where the otu_table is replaced in place.
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details In transformation typ, the 'compositional' abundances are returned
 #' as relative abundances in [0, 1] (convert to percentages by multiplying
@@ -64,7 +70,8 @@
 #'
 #' @keywords utilities
 transform <- function(x, transform = "identity", target = "OTU",
-                      shift = 0, scale = 1, log10=TRUE, reference=1, ...) {
+                      shift = 0, scale = 1, log10=TRUE, reference=1,
+                      name = NULL, ...) {
     
     
     y <- NULL
@@ -75,12 +82,12 @@ transform <- function(x, transform = "identity", target = "OTU",
         used and not recommended for samples. Consider using target = OTU."))
     }
     
-    # If x is not a phyloseq object then assume that it is
-    # taxa x samples matrix
+    # If x is not a phyloseq or SummarizedExperiment object then assume
+    # that it is a taxa x samples matrix
     x0 <- xorig
-    
-    # If x is a phyloseq then make sure we pick taxa x samples matrix
-    if (any(c("otu_table", "phyloseq") %in% is(x))) {
+
+    # If x is a data object then make sure we pick taxa x samples matrix
+    if (any(c("otu_table", "phyloseq") %in% is(x)) || .is_se(x)) {
         # This always returns taxa x samples matrix
         x0 <- as.matrix(abundances(xorig))
     }
@@ -199,17 +206,21 @@ transform <- function(x, transform = "identity", target = "OTU",
         xret <- t(xret)
     }
     
-    # If the input was phyloseq, then return phyloseq
+    # If the input was a data object, then return the same class
     if (any(is(xorig) %in% c("otu_table", "phyloseq"))) {
-        
-        #xret <- otu_table(xret, taxa_are_rows = T)
-        
-        if (taxa_are_rows(xorig)) {
-            otu_table(xorig) <- otu_table(xret, taxa_are_rows = T)
-        } else {
-            otu_table(xorig) <- otu_table(t(xret), taxa_are_rows = F)
+
+        xret <- .set_abundances(xorig, xret)
+
+    } else if (.is_se(xorig)) {
+
+        # The transformed matrix is added as a new named assay rather
+        # than replacing the counts, following the mia convention.
+        if (is.null(name)) {
+            name <- transform
         }
-        xret <- xorig
+
+        xret <- .set_abundances(xorig, xret, name=name)
+
     }
     
     xret

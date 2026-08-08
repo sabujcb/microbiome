@@ -13,7 +13,7 @@
 timesplit <- function(x) {
     
     x0 <- x
-    df <- sample_data(x0)
+    df <- meta(x0)
 
     # Ensure time is numeric
     df$time <- as.numeric(as.character(df$time))

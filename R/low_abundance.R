@@ -31,8 +31,10 @@ low_abundance <- function(x, detection=0.2/100) {
     do <- apply(xc, 2, function(x) {
         sum(x[x < detection])
     })
-    names(do) <- colnames(x)
-    
+    # Take the sample names from the abundance matrix rather than from x:
+    # colnames() is NULL for a phyloseq object and would drop the names.
+    names(do) <- colnames(xc)
+
     do
     
 }
