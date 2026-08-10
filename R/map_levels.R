@@ -25,7 +25,7 @@ map_levels <- function(taxa=NULL, from, to, data) {
     }
     
     # If taxonomy table is from phyloseq, pick the data matrix separately
-    if (length(is(data)) == 1 && is(data) == "taxonomyTable") {
+    if (is(data, "taxonomyTable")) {
         data <- tax_table(data)
     }
     

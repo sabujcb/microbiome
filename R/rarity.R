@@ -17,7 +17,7 @@
 #' low abundance.
 #'
 #' The following rarity indices are provided:
-#' \itemize{
+#' \describe{
 #' \item{log_modulo_skewness }{Quantifies the concentration of the least
 #' abundant species by the log-modulo skewness of the arithmetic
 #' abundance classes (see Magurran & McGill 2011). These are typically

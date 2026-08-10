@@ -8,7 +8,6 @@
 #' @param min.density minimum accepted density for a maximum; as a multiple of
 #' kernel height
 #' @return List with following elements:
-#' \itemize{
 #' \item{modes}{Number of modes for the input data vector
 #' (the most frequent number of modes from bootstrap)}
 #' \item{minima}{Average of potential minima across the bootstrap samples
@@ -18,7 +17,6 @@
 #' \item{unimodality.support}{Fraction of bootstrap samples exhibiting
 #' unimodality}
 #' \item{bws}{Bandwidths}
-#' }
 #' @export
 #' @examples
 #' 
@@ -36,11 +34,11 @@
 #' @seealso plot_potential
 #' @references
 #' \itemize{
-#' \item{}{Livina et al. (2010). Potential analysis reveals changing number
+#' \item Livina et al. (2010). Potential analysis reveals changing number
 #' of climate states during the last 60 kyr.
-#' \emph{Climate of the Past}, 6, 77-82.}
-#' \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-#' ecosystem. \emph{Nature Communications} 5:4344.}
+#' \emph{Climate of the Past}, 6, 77-82.
+#' \item Lahti et al. (2014). Tipping elements of the human intestinal
+#' ecosystem. \emph{Nature Communications} 5:4344.
 #' }
 potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     bs.iter=100, min.density=1) {
@@ -120,7 +118,6 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 #' @inheritParams potential_analysis
 #' @return \code{potential_univariate} returns a list with the
 #' following elements:
-#' \itemize{
 #' \item{xi }{the grid of points on which the potential is estimated}
 #' \item{pot }{The estimated potential: -log(f)*std^2/2,
 #' where f is the density.}
@@ -134,15 +131,14 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 #' minimum values; (-potentials; neglecting local optima)}
 #' \item{max.points }{grid point values at which the density has
 #' maximum values; (-potentials; neglecting local optima)}
-#' }
 #' @references
 #' \itemize{
-#' \item{}{Livina et al. (2010).
+#' \item Livina et al. (2010).
 #'  Potential analysis reveals changing number of climate states during
-#'  the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
-#' \item{}{Lahti et al. (2014).
+#'  the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.
+#' \item Lahti et al. (2014).
 #'  Tipping elements of the human intestinal ecosystem.
-#'  \emph{Nature Communications} 5:4344.}
+#'  \emph{Nature Communications} 5:4344.
 #' }
 #' @author Based on Matlab code from Egbert van Nes modified by Leo Lahti.
 #' Extended from the initial version in the \pkg{earlywarnings} R package.
@@ -165,7 +161,7 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
         n=grid.size,
         from=min(x), to=max(x), 
         cut=3, na.rm=FALSE))
-    if (length(tmp) == 1 && is(tmp) == "try-error") {
+    if (is(tmp, "try-error")) {
         # Just use default parameters if failing otherwise
         warning("Density estimation with custom parameters failed. 
             Using the defaults.")

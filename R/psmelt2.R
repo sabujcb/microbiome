@@ -19,7 +19,7 @@
 #' @export                     
 psmelt2 <- function(x, sample.column=NULL, feature.column=NULL){
     
-    if (class(x)!="phyloseq"){
+    if (!is(x, "phyloseq")){
         stop("Input is not an object of phyloseq class")
     }
     .deprecate_phyloseq(x)
