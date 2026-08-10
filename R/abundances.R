@@ -29,6 +29,8 @@ abundances <- function(x, transform="identity", assay.type=NULL) {
 
     } else if (any(c("phyloseq", "otu_table") %in% is(x))) {
 
+        .deprecate_phyloseq(x)
+
         # Pick OTU matrix
         otu <- as(otu_table(x), "matrix") # get_taxa(x)
     

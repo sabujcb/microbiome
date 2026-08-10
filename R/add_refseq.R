@@ -20,6 +20,7 @@ add_refseq <- function(x, tag="ASV"){
     if (class(x)!="phyloseq"){
         stop("Input is not an object of phyloseq class")
     }
+    .deprecate_phyloseq(x)
     
     nucl <- Biostrings::DNAStringSet(taxa_names(x))
     names(nucl) <- taxa_names(x)

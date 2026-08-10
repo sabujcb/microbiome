@@ -84,14 +84,17 @@
 # matrix itself.
 
 .ntaxa <- function(x) {
+    .deprecate_phyloseq(x)
     if (.is_se(x)) nrow(x) else ntaxa(x)
 }
 
 .nsamples <- function(x) {
+    .deprecate_phyloseq(x)
     if (.is_se(x)) ncol(x) else nsamples(x)
 }
 
 .sample_names <- function(x) {
+    .deprecate_phyloseq(x)
     if (.is_se(x)) colnames(x) else sample_names(x)
 }
 
@@ -101,6 +104,8 @@
 # matching what phyloseq::prune_taxa / prune_samples do.
 
 .subset_taxa_obj <- function(x, keep) {
+
+    .deprecate_phyloseq(x)
 
     if (.is_se(x)) {
         if (is.character(keep)) {
@@ -114,6 +119,8 @@
 }
 
 .subset_samples_obj <- function(x, keep) {
+
+    .deprecate_phyloseq(x)
 
     if (.is_se(x)) {
         if (is.character(keep)) {
@@ -130,6 +137,8 @@
 # Replace the sample metadata. The phyloseq branch keeps the existing
 # sample_data<- behaviour.
 .set_meta <- function(x, df) {
+
+    .deprecate_phyloseq(x)
 
     if (.is_se(x)) {
         cd <- methods::as(as.data.frame(df), "DataFrame")
@@ -152,6 +161,8 @@
 # following the mia convention (see transformAssay). The caller therefore
 # reads the result back with abundances(x, assay.type = name).
 .set_abundances <- function(x, mat, name="counts") {
+
+    .deprecate_phyloseq(x)
 
     if (.is_se(x)) {
 

@@ -20,6 +20,8 @@ taxa <- function(x) {
         return(rownames(x))
     }
 
+    .deprecate_phyloseq(x)
+
     if (taxa_are_rows(x)) {
         rownames(otu_table(x))    
     } else {

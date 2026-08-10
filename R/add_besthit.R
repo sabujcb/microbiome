@@ -21,6 +21,7 @@
 #' @keywords utilities
 
 add_besthit <- function(x, sep=":"){
+  .deprecate_phyloseq(x)
   
   Class<-Domain<- Family<- Genus<- Genus.Species<- NULL
   Order<- Phylum<- Species<-NULL

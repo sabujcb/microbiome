@@ -222,3 +222,40 @@ test_that("compositional transform of abundances agrees", {
     expect_equal(abundances(dietswap, transform="clr"),
         abundances(tse, transform="clr"))
 })
+
+
+test_that("phyloseq input emits a one-time deprecation notice", {
+
+    data(dietswap)
+
+    # Fires on first phyloseq contact
+    microbiome:::.reset_phyloseq_deprecation()
+    expect_message(abundances(dietswap), "phyloseq-based methods will be")
+
+    # ... but only once per session, so that the internal accessor calls
+    # do not bury the user in repeats
+    expect_no_message(abundances(dietswap))
+    expect_no_message(meta(dietswap))
+    expect_no_message(taxa(dietswap))
+
+    # Honours the option
+    microbiome:::.reset_phyloseq_deprecation()
+    old <- options(microbiome.phyloseq_deprecation=FALSE)
+    on.exit(options(old), add=TRUE)
+    expect_no_message(abundances(dietswap))
+})
+
+
+test_that("TreeSE input never emits the phyloseq notice", {
+
+    skip_if_no_tse()
+
+    data(dietswap)
+    tse <- mia::convertFromPhyloseq(dietswap)
+
+    microbiome:::.reset_phyloseq_deprecation()
+    expect_no_message(abundances(tse))
+    expect_no_message(meta(tse))
+    expect_no_message(taxa(tse))
+    expect_no_message(core(tse, detection=1, prevalence=0.5))
+})

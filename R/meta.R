@@ -31,6 +31,8 @@ meta <- function(x) {
 
     }
 
+    .deprecate_phyloseq(x)
+
     df <- as(sample_data(x), "data.frame")
     rownames(df) <- sample_names(x)
     df

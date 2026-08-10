@@ -20,6 +20,7 @@
 map_levels <- function(taxa=NULL, from, to, data) {
     
     if (is.phyloseq(data)) {
+        .deprecate_phyloseq(data)
         data <- tax_table(data)
     }
     

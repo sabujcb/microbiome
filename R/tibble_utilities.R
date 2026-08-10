@@ -43,7 +43,9 @@ otu_tibble <- function(x, column.id="FeatureID"){
 #' @aliases tax_tibble
 #' @export
 tax_tibble <- function(x, column.id="FeatureID"){
-    
+
+    .deprecate_phyloseq(x)
+
     if (any(c("phyloseq", "tax_table") %in% is(x))) {
         
         # Pick OTU matrix
