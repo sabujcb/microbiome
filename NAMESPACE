@@ -143,6 +143,10 @@ importFrom(ggplot2,
   xlab,
   ylab
 )
+importFrom(methods,
+  as,
+  is
+)
 importFrom(phyloseq,
   "otu_table<-",
   "sample_data<-",

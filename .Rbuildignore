@@ -42,6 +42,9 @@ vignettes/*.html
 # Git related
 .git*
 
+# Tooling
+^\.claude$
+
 # Travis scripts
 README.Rmd
 .travis.yml

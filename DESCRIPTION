@@ -21,6 +21,7 @@ Imports:
     Biostrings,
     compositions,
     dplyr,
+    methods,
     reshape2,
     Rtsne,
     scales,
