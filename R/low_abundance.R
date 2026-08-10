@@ -17,7 +17,7 @@
 #' @keywords utilities
 #' @seealso core_abundance, rarity, global
 low_abundance <- function(x, detection=0.2/100) {
-    
+
     if (length(detection) > 1) {
         tab <- vapply(detection, function(th) {
             low_abundance(x, detection=th)
@@ -26,7 +26,7 @@ low_abundance <- function(x, detection=0.2/100) {
         rownames(tab) <- colnames(abundances(x))
         return(tab)
     }
-    
+
     xc <- abundances(x, transform="compositional")
     do <- apply(xc, 2, function(x) {
         sum(x[x < detection])
@@ -36,7 +36,7 @@ low_abundance <- function(x, detection=0.2/100) {
     names(do) <- colnames(xc)
 
     do
-    
+
 }
 
 

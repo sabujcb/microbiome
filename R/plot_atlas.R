@@ -21,9 +21,9 @@
 #' p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'Bifidobacterium')
 #' @keywords utilities
 plot_atlas <- function(pseq, x, y, ncol=2) {
-    
+
     index <- signal <- xvar <- NULL
-    
+
     m <- meta(pseq)
     df <- data.frame(m[, x, drop=FALSE])
     df$xvar <- df[[x]]
@@ -34,21 +34,21 @@ plot_atlas <- function(pseq, x, y, ncol=2) {
     } else if (y %in% rownames(abundances(pseq))) {
         df$signal <- as.vector(abundances(pseq)[y, ])
     }
-    
+
     # Randomize sample order to avoid visualization biases
     df <- df[sample(nrow(df)), ]
-    
+
     # Order the factor levels (x variables) by their standard deviation
     df$xvar <- factor(df$xvar,
         levels=names(sort(vapply(split(df$signal, df$xvar), sd, 1))))
-    
+
     # Order by x variable (randomization affects the ordering within
     # each factor level if this is a factor)
-    
+
     df <- df[order(df$xvar), ]
-    
+
     df$index <- seq_len(nrow(df))
-    
+
     p <- ggplot(df, aes(x=index, y=signal, color=xvar))
     p <- p + geom_point()
     p <- p + guides(color=guide_legend(ncol=ncol, title=x))
@@ -56,8 +56,8 @@ plot_atlas <- function(pseq, x, y, ncol=2) {
     p <- p + ggtitle(y)
     p <- p + xlab("Sample index")
     p <- p + ylab(y)
-    
+
     p
-    
+
 }
 

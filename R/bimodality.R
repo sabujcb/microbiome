@@ -76,10 +76,10 @@
 #' @keywords utilities
 bimodality <- function(x, method="potential_analysis", peak.threshold=1,
     bw.adjust=1, bs.iter=100, min.density=1, verbose=TRUE) {
-    
+
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
-    
+
     if (length(method) > 1 || method == "all") {
         method <- accepted
         tab <- NULL
@@ -92,14 +92,14 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
         tab <- as.data.frame(tab)
         return(tab)
     }
-    
-    
+
+
     if (is.vector(x)) {
-        
+
         if (method %in% c("Sarle.finite.sample", "Sarle.asymptotic")) {
-            
+
             s <- bimodality_sarle(x, type=method)
-            
+
         } else if (method == "potential_analysis") {
 
             if (length(unique(x)) == 1) {                
@@ -111,15 +111,15 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
                                     bs.iter, min.density, verbose)$score
             }
         }
-        
+
     } else if (is.matrix(x)) {
-        
+
         s <- apply(x, 1, function(xi) {
             bimodality(xi, method=method, peak.threshold=peak.threshold,
             bw.adjust=bw.adjust, 
                 bs.iter=bs.iter, min.density=min.density, verbose=verbose)
         })
-        
+
     } else if (.is_data_object(x)) {
 
         # Pick the data from phyloseq / SummarizedExperiment object
@@ -127,11 +127,11 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
         s <- bimodality(x, method=method, peak.threshold=peak.threshold,
         bw.adjust=bw.adjust, 
             bs.iter=bs.iter, min.density=min.density, verbose=verbose)
-        
+
     }
-    
+
     s
-    
+
 }
 
 
@@ -173,7 +173,7 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
 #' @keywords utilities
 multimodality <- function(x, peak.threshold=1, bw.adjust=1,
     bs.iter=100, min.density=1, verbose=TRUE) {
-    
+
     if (is.vector(x)) {
 
         # Add small noise to enable robust density estimation
@@ -184,17 +184,17 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         ret <- list(score=1 - m$unimodality.support,
         modes=m$modes, results=m)
         return(ret)
-        
+
     } else {
-        
+
         # Univariate potential analysis for all taxa with full data
         potential.results <- list()
         nmodes <- c()
-    
+
         if (is.null(rownames(x))) {
             rownames(x) <- as.character(seq_len(nrow(x)))
         }
-        
+
         for (tax in rownames(x)) {
             if (verbose) {
                 message(tax)
@@ -204,19 +204,19 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
             nmodes[[tax]] <- m$modes
             potential.results[[tax]] <- m
         }
-        
+
         multimodality.score <- vapply(potential.results, function(x) {
             1 - x$unimodality.support
         }, 1)
-        
+
         ret <- list(score=multimodality.score,
                     modes=nmodes,
                     results=potential.results)
-        
+
     }
-    
+
     ret
-    
+
 }
 
 
@@ -258,21 +258,21 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #' classical test of multimodality.
 #' @keywords utilities
 bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
-    
+
     g <- skew(x)
     k <- kurtosis(x)
-    
+
     if (type == "Sarle.asymptotic") {
-        
+
         s <- (1 + g^2)/(k + 3)
-        
+
     } else if (type == "Sarle.finite.sample") {
-        
+
         n <- length(x)
         s <- (g^2 + 1)/(k + (3 * (n - 1)^2)/((n - 2) * (n - 3)))
-        
+
     }
-    
+
     if (bs.iter > 1) {
         s <- c()
         for (i in seq_len(bs.iter)) {
@@ -281,9 +281,9 @@ bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
         }
         s <- mean(s)
     }
-    
+
     s
-    
+
 }
 
 

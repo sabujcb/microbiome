@@ -73,7 +73,7 @@ dominance <- function(x, index="all", rank=1, relative=TRUE, aggregate=TRUE) {
 
     # Only include accepted indices
     if (!is.null(index)) {index <- tolower(index)}
-    
+
     accepted <- tolower(c("DBP", "DMN", "absolute", "relative",
         "simpson", "core_abundance", "gini"))
 
@@ -106,7 +106,7 @@ dominance <- function(x, index="all", rank=1, relative=TRUE, aggregate=TRUE) {
     }
     colnames(tab) <- index
     tab <- as.data.frame(tab)
-    
+
     tab
 
 }
@@ -154,7 +154,7 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
             x/sum(x, na.rm=TRUE)
         })
     }
-    
+
     if (!aggregate) {
         do <- apply(otu, 2, function(x) {
             rev(sort(x))[[rank]]
@@ -164,7 +164,7 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
             sum(rev(sort(x))[seq_len(rank)])
         })
     }
-    
+
     names(do) <- colnames(otu)
 
     if (is.vector(do)) {
@@ -173,7 +173,7 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
     }
 
     do
-    
+
 }
 
 
@@ -181,23 +181,23 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
 
 # x: Species count vector
 simpson_dominance <- function(x, zeroes=TRUE) {
-    
+
     if (!zeroes) {
         x[x > 0]
     }
-    
+
     # Relative abundances
     p <- x/sum(x)
-    
+
     # Simpson index (has interpretation as dominance)
     lambda <- sum(p^2)
-    
+
     # More advanced Simpson dominance (Simpson 1949) However let us not use
     # this as it is not in [0,1] and it is very highly correlated with the
     # simpler variant lambda Species richness (number of species)
     # S <- length(x) sum(p * (p - 1)) / (S * (S - 1))
 
     lambda
-    
+
 }
 

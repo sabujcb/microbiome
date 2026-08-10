@@ -7,7 +7,9 @@
 #
 # The version is read from DESCRIPTION so it does not need updating here.
 
-R=~/bin/R-4.5.1/bin/R
+# Override to check against another R, e.g. the one Bioc devel builds on:
+#   R=$HOME/bin/R-devel/bin/R sh build.sh
+R=${R:-$HOME/bin/R-4.5.1/bin/R}
 TARBALL=microbiome_$(awk '/^Version:/ {print $2}' ../../DESCRIPTION).tar.gz
 
 $R CMD build ../../ || exit 1 #--resave-data #--no-examples  --no-build-vignettes

@@ -33,7 +33,7 @@ abundances <- function(x, transform="identity", assay.type=NULL) {
 
         # Pick OTU matrix
         otu <- as(otu_table(x), "matrix") # get_taxa(x)
-    
+
         # Ensure that taxa are on the rows
         if (!taxa_are_rows(x) && ntaxa(x) > 1 && nsamples(x) > 1) {
             otu <- t(otu)
@@ -44,7 +44,7 @@ abundances <- function(x, transform="identity", assay.type=NULL) {
             rownames(otu) <- taxa(x)
             colnames(otu) <- sample_names(x)
         }
-        
+
         if (nsamples(x) == 1) {
             otu <- matrix(otu, ncol=1)
             rownames(otu) <- taxa(x)
@@ -52,24 +52,24 @@ abundances <- function(x, transform="identity", assay.type=NULL) {
         }
 
     } else if (is.vector(x)) {
-        
+
         otu <- as.matrix(x, ncol=1)
-        
+
     } else {
-        
+
         # If x is not vector or phyloseq object then let us assume it is a
         # taxa x samples
         # count matrix
         otu <- x
-        
+
     }
-    
+
     # Apply the indicated transformation
     if (!transform == "identity") {
         otu <- transform(otu, transform)
     }
     otu
-    
+
 }
 
 

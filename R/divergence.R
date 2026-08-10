@@ -59,14 +59,14 @@ divergence <- function(x, y, method="bray") {
 
         b[[i]] <- as.matrix(xxx)[1, 2]
     }
-    
+
     # Add sample names
     names(b) <- colnames(x)
 
     unlist(b)
-    
+
 }
 
 
-    
+
 

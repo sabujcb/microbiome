@@ -15,10 +15,10 @@
 #' 
 summarize_phyloseq <- function(x)
 {
-    
+
     ave <- minR <- maxR <- tR <- aR <- mR <- sR <- sR1 <- sR2 <- svar <- NULL
     sam_var <- zno <- comp <- NULL
-    
+
     # Compute the abundance matrix once and take the margins from it, so
     # that the summary works for any supported backend. This also avoids
     # recomputing the same sums a dozen times.
@@ -65,11 +65,11 @@ summarize_phyloseq <- function(x)
         #    100)
     svar <- paste0("10] Number of sample variables are: ", ncol(meta(x)))
     sam_var <- colnames(meta(x))
-    
+
     message(minR, maxR, tR, aR, mR, zno, sR, sR1, sR2, svar, sam_var, 
         fill = 2)
 
     # Return?
     list(minR, maxR, tR, aR, mR, zno, sR, sR1, sR2, svar, sam_var)
-    
+
 }
