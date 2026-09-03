@@ -1,7 +1,10 @@
 Package: microbiome
 Type: Package
 Title: Microbiome Analytics
-Description: Utilities for microbiome analysis.
+Description: Provides methods for microbiome data analysis and visualization,
+    including compositional transformations, community profiling, diversity
+    analysis, and exploration of taxonomic abundance data represented as
+    phyloseq objects.
 Encoding: UTF-8
 Version: 1.35.1
 Date: 2026-08-10
@@ -14,7 +17,7 @@ Authors@R: c(
 biocViews: Metagenomics,Microbiome,Sequencing,SystemsBiology
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 4.5.0),
+    R (>= 4.6.0),
     phyloseq,
     ggplot2
 Imports:
